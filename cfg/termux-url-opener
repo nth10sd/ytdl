@@ -18,7 +18,7 @@ dlfolder="/data/data/com.termux/files/home/storage/downloads"
 if $video; then
     # Video and audio
     /data/data/com.termux/files/home/.local/bin/PLACEHOLDERNAME \
-         -f "best[height<=480] \
+        -f "best[height<=480]" \
         -o "$dlfolder/Youtube/Videos/%(title)s.%(ext)s" "$1" \
     ;
 else
