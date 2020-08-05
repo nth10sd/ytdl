@@ -67,6 +67,7 @@ if [[ "$video" == [yY] || "$video" == [yY][eE][sS] ]]; then
     echo "Downloading both portions as preference was: $video";
     # Do not rename filenames or Chinese names disappear
     /data/data/com.termux/files/home/.local/bin/PLACEHOLDERNAME \
+        --write-sub --embed-subs --all-subs \
         -f "best[height<=$maxvidq]" \
         -o "$dlfolder/VideosObtained/%(title)s.%(ext)s" \
         "$url" \
