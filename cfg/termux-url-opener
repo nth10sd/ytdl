@@ -39,6 +39,10 @@ else
 fi
 
 echo "[ytdl] Parsing ytdl-config...";
+# Default values
+audq="3"
+dlfolder="/data/data/com.termux/files/home/storage/downloads"
+maxvidq="480"
 IFS="=";
 while read -r variable value; do
 if [[ $variable == audq ]]; then
