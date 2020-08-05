@@ -27,6 +27,6 @@ urlopener="$HOME/bin/termux-url-opener"
 x="https://raw.githubusercontent.com/nth10sd/ytdl/master/cfg/termux-url-opener"
 curl --proto '=https' --tlsv1.2 -sSf -o "$urlopener" "$x";
 if [ -f "$urlopener" ]; then
-    echo "Replacing placeholder with intended program...";
     sed -i "s/PLACEHOLDERNAME/$1/g" "$urlopener";
 fi
+exit;
