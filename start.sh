@@ -2,9 +2,7 @@
 
 echo "[ytdl] Updating Termux package indexes...";
 pkg update -y;
-echo "[ytdl] Upgrading Termux packages...";
-pkg upgrade -y;
-echo "[ytdl] Installing Termux packages...";
+echo "[ytdl] Installing/Updating needed packages...";
 pkg install -y curl ffmpeg python;
 
 echo "[ytdl] Installing pip and setuptools...";
@@ -28,7 +26,7 @@ echo "Retrieving termux-url-opener script...";
 urlopener="$HOME/bin/termux-url-opener"
 x="https://raw.githubusercontent.com/nth10sd/ytdl/master/cfg/termux-url-opener"
 curl --proto '=https' --tlsv1.2 -sSf -o "$urlopener" "$x";
-if [[ -f "$urlopener" ]]; then
+if [ -f "$urlopener" ]; then
     echo "Replacing placeholder with intended program...";
     sed "s/PLACEHOLDERNAME/$1/g" "$urlopener";
 fi
