@@ -1,8 +1,8 @@
 #! /bin/bash
 
 url="$1"  # Must be before bash's read command
-read -p 'Download video portion? (y/n): ' -r video
+read -p 'Download video portion? (y/n): ' -r video;
 
 curl -L --proto '=https' --tlsv1.2 -sSf \
     https://raw.githubusercontent.com/nth10sd/ytdl/master/cfg/run.sh \
-    | bash -s -- PLACEHOLDERNAME "$url" "$video"
+    | bash -s -- PLACEHOLDERNAME "$url" "$video";
