@@ -16,10 +16,13 @@ mkdir -p "$HOME/.config/ytdl/";
 echo "[ytdl] Retrieving default ytdl-config file...";
 onlineycfgmd5sum="$(curl -sL https://git.io/JJ670 | md5sum | cut -d ' ' -f 1)";
 ycfgpath="$HOME/.config/ytdl/ytdl-config";
-if [[ -f "$ycfgpath" && \
-        "$(md5sum "$ycfgpath" | cut -d ' ' -f 1)" == "$onlineycfgmd5sum" \
-        ]]; then
-    echo "[ytdl] Found local custom ytdl-config, not getting remote one.";
+if [[ -f "$ycfgpath" ]]; then
+    if [[ "$(md5sum "$ycfgpath" | cut -d ' ' -f 1)" \
+            == "$onlineycfgmd5sum" ]]; then
+        echo "[ytdl] Found identical ytdl-config, not getting remote one.";
+    else
+        echo "[ytdl] Found custom ytdl-config, not getting remote one.";
+    fi
 else
     echo "[ytdl] Retrieving ytdl config script...";
     ytdlcfgurl="https://raw.githubusercontent.com/nth10sd";
