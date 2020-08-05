@@ -81,13 +81,6 @@ else
             -o "$dlfolder/SongsObtained/%(title)s-Aq$audq.%(ext)s" \
             "$url" \
         ;
-    elif [[ "$audq" == FLAC ]]; then
-        echo "Downloading FLAC audio-only quality, this may fail silently!!!";
-        /data/data/com.termux/files/home/.local/bin/PLACEHOLDERNAME \
-            --extract-audio --audio-format flac \
-            -o "$dlfolder/SongsObtained/%(title)s-Aq$audq.%(ext)s" \
-            "$url" \
-        ;
     else
         echo "Downloading audio-only and re-encoding to MP3...";
         /data/data/com.termux/files/home/.local/bin/PLACEHOLDERNAME \
