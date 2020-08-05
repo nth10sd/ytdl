@@ -13,11 +13,11 @@ pip install --user --upgrade pip setuptools;
 echo "[ytdl] Updating PLACEHOLDERNAME...";
 pip install --user --upgrade PLACEHOLDERNAME;
 
-echo "[ytdl] Creating ytdl config directory if it does not already exist...";
+echo "[ytdl] Creating ytdl config directory if it does not exist.";
 mkdir -p "$HOME/.config/ytdl/";
 ycfgpath="$HOME/.config/ytdl/ytdl-config";
 if [[ -f "$ycfgpath" ]]; then
-    echo "[ytdl] Found the local ytdl-config, so not retrieving remote one.";
+    echo "[ytdl] Found local ytdl-config, not getting remote one.";
 else
     echo "[ytdl] Retrieving ytdl config script...";
     ytdlcfgurl="https://raw.githubusercontent.com/nth10sd";
