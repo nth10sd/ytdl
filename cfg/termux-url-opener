@@ -7,7 +7,7 @@ read -p 'Download video portion? (Y/N): ' -r video && \
 echo "[ytdl] Updating Termux package indexes...";
 pkg update -y;
 echo "[ytdl] Installing Termux packages...";
-pkg install -y ffmpeg python;
+pkg install --no-install-recommends -y ffmpeg python;
 
 echo "[ytdl] Updating pip and setuptools...";
 pip install --user --upgrade pip setuptools;
