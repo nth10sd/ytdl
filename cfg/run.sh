@@ -8,7 +8,7 @@ pkg install --no-install-recommends -y ffmpeg python;
 echo "[ytdl] Installing latest versions of pip and setuptools...";
 pip install --user --upgrade pip setuptools;
 echo "[ytdl] Updating $1...";
-pip install --user --upgrade $1;
+pip install --user --upgrade "$1";
 
 echo "[ytdl] Creating ytdl config directory if it does not exist.";
 mkdir -p "$HOME/.config/ytdl/";
@@ -50,7 +50,7 @@ if [[ "$3" == [yY] || "$3" == [yY][eE][sS] ]]; then
     echo "Creating destination directory...";
     mkdir -p "$HOME/storage/downloads/VideosObtained/";
     echo "Downloading both portions as preference was: $3";
-    /data/data/com.termux/files/home/.local/bin/$1 \
+    "/data/data/com.termux/files/home/.local/bin/$1" \
         --add-metadata --no-mtime --no-overwrites \
         --write-sub --embed-subs --all-subs \
         -f "best[height<=$maxvidq]" \
@@ -62,7 +62,7 @@ else
     mkdir -p "$HOME/storage/downloads/SongsObtained/";
     if [[ "$audq" == BEST ]]; then
         echo "Downloading best audio-only quality available...";
-        /data/data/com.termux/files/home/.local/bin/$1 \
+        "/data/data/com.termux/files/home/.local/bin/$1" \
             --add-metadata --no-mtime --no-overwrites \
             --extract-audio --audio-format best \
             -o "$dlfolder/SongsObtained/%(title)s-Aq$audq.%(ext)s" \
@@ -70,7 +70,7 @@ else
         ;
     else
         echo "Downloading audio-only and re-encoding to MP3...";
-        /data/data/com.termux/files/home/.local/bin/$1 \
+        "/data/data/com.termux/files/home/.local/bin/$1" \
             --add-metadata --no-mtime --no-overwrites \
             --extract-audio --audio-format mp3 --audio-quality "$audq" \
             --prefer-ffmpeg --postprocessor-args "-id3v2_version 3" \
