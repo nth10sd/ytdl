@@ -48,7 +48,7 @@ while read -r variable value; do
 if [[ $variable == audq ]]; then
     echo "[ytdl] $variable value from config file is: ${value//\"/}";
     audq="${value//\"/}";
-    echo "[ytdl] Audio quality used will be: $audq";
+    echo "[ytdl] Quality for audio files (0-9, 0 is best): $audq";
 elif [[ $variable == dlfolder ]]; then
     echo "[ytdl] $variable value from config file is: ${value//\"/}";
     dlfolder="${value//\"/}";
@@ -56,7 +56,7 @@ elif [[ $variable == dlfolder ]]; then
 elif [[ $variable == maxvidq ]]; then
     echo "[ytdl] $variable value from config file is: ${value//\"/}";
     maxvidq="${value//\"/}";
-    echo "[ytdl] Max video quality used will be: $maxvidq";
+    echo "[ytdl] Max video quality for video files: $maxvidq";
 fi
 done < "$ycfgpath";
 
@@ -68,7 +68,7 @@ if [[ "$video" == [yY] || "$video" == [yY][eE][sS] ]]; then
     # Do not make output filename a bash variable or Chinese names disappear
     /data/data/com.termux/files/home/.local/bin/PLACEHOLDERNAME \
         -f "best[height<=$maxvidq]" \
-        -o "$dlfolder/VideosObtained/%(title)s-maxVq$maxvidq-Aq$audq.%(ext)s" \
+        -o "$dlfolder/VideosObtained/%(title)s-maxVq$maxvidq.%(ext)s" \
         "$url" \
     ;
 else
