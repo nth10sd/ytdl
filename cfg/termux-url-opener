@@ -13,14 +13,33 @@ pip install --user --upgrade pip setuptools;
 echo "[ytdl] Updating PLACEHOLDERNAME...";
 pip install --user --upgrade PLACEHOLDERNAME;
 
-echo "Creating config directory if it does not already exist...";
+echo "[ytdl] Creating ytdl config directory if it does not already exist...";
+mkdir -p "$HOME/.config/ytdl/";
+ycfgpath="$HOME/.config/ytdl/ytdl-config"
+if [[ -f "$ycfgpath" ]]; then
+    echo "[ytdl] Found the local ytdl-config, so not retrieving remote one."
+else
+    echo "[ytdl] Retrieving ytdl config script...";
+    cfg="https://raw.githubusercontent.com/nth10sd/ytdl/master/cfg/ytdl-config"
+    curl --proto '=https' --tlsv1.2 -sSf \
+        -o "$ycfgpath" "$cfg";
+fi
+
+echo "[ytdl] Creating $1 config directory if it does not already exist...";
 mkdir -p "$HOME/.config/$1/";
-echo "Retrieving config script...";
+echo "[ytdl] Retrieving $1 config script...";
 configurl="https://raw.githubusercontent.com/nth10sd/ytdl/master/cfg/config"
 curl --proto '=https' --tlsv1.2 -sSf -o "$HOME/.config/$1/config" "$configurl";
 
 echo "[ytdl] Running PLACEHOLDERNAME...";
-dlfolder="/data/data/com.termux/files/home/storage/downloads"
+IFS="="
+while read -r variable value; do
+if [[ $variable == dlfolder ]]; then
+    echo "[ytdl] $variable value from config file is: ${value//\"/}"
+    dlfolder="${value//\"/}"
+    echo "[ytdl] Files will be saved in: $dlfolder"
+fi
+done < "$ycfgpath"
 if [[ "$video" == [yY] || "$video" == [yY][eE][sS] ]]; then
     echo "Creating destination directory...";
     mkdir -p "$HOME/storage/downloads/VideosObtained/";
