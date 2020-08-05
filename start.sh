@@ -17,7 +17,7 @@ echo "[ytdl] Retrieving default ytdl-config file...";
 onlineycfgmd5sum="$(curl -sL https://git.io/JJ670 | md5sum | cut -d ' ' -f 1)";
 ycfgpath="$HOME/.config/ytdl/ytdl-config";
 if [[ -f "$ycfgpath" && \
-        "$(md5sum \\"$ycfgpath\\" | cut -d ' ' -f 1)" == "$onlineycfgmd5sum" \
+        "$(md5sum "$ycfgpath" | cut -d ' ' -f 1)" == "$onlineycfgmd5sum" \
         ]]; then
     echo "[ytdl] Found local custom ytdl-config, not getting remote one.";
 else
