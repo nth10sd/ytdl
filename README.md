@@ -13,4 +13,4 @@ Download Termux from any of the following places:
 
 Run the script:
 
-`curl -L --proto '=https' --tlsv1.2 -sSf https://git.io/JJKXh | sh -s -- REPLACEME`
+`curl -L --proto '=https' --tlsv1.2 -sSf https://git.io/JJKXh | bash -s -- REPLACEME`
