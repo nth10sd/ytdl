@@ -31,3 +31,6 @@ if [[ -f "$urlopener" ]]; then
 fi
 
 echo "Installation complete!";
+echo;
+echo 'Type "exit" to quit Termux when you are done.';
+echo;
