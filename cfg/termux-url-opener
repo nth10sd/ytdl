@@ -74,11 +74,20 @@ if [[ "$video" == [yY] || "$video" == [yY][eE][sS] ]]; then
 else
     echo "Creating destination directory...";
     mkdir -p "$HOME/storage/downloads/SongsObtained/";
-    echo "Downloading audio-only...";
-    /data/data/com.termux/files/home/.local/bin/PLACEHOLDERNAME \
-        --extract-audio --audio-format mp3 --audio-quality "$audq" \
-        --prefer-ffmpeg --postprocessor-args "-id3v2_version 3" \
-        -o "$dlfolder/SongsObtained/%(title)s-Aq$audq.%(ext)s" \
-        "$url" \
-    ;
+    if [[ "$audq" == BEST ]]; then
+        echo "Downloading best audio-only quality available...";
+        /data/data/com.termux/files/home/.local/bin/PLACEHOLDERNAME \
+            --extract-audio --audio-format best \
+            -o "$dlfolder/SongsObtained/%(title)s-Aq$audq.%(ext)s" \
+            "$url" \
+        ;
+    else
+        echo "Downloading audio-only and re-encoding to MP3...";
+        /data/data/com.termux/files/home/.local/bin/PLACEHOLDERNAME \
+            --extract-audio --audio-format mp3 --audio-quality "$audq" \
+            --prefer-ffmpeg --postprocessor-args "-id3v2_version 3" \
+            -o "$dlfolder/SongsObtained/%(title)s-Aq$audq.%(ext)s" \
+            "$url" \
+        ;
+    fi
 fi
