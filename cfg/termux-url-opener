@@ -1,5 +1,6 @@
 #! /bin/bash
 
+url="$1"  # Must be before bash's read command
 read -p 'Download video portion? (Y/N): ' -r video && \
     [[ $video == [yY] || $video == [yY][eE][sS] ]]
 
@@ -19,13 +20,13 @@ if $video; then
     # Video and audio
     /data/data/com.termux/files/home/.local/bin/PLACEHOLDERNAME \
         -f "best[height<=480]" \
-        -o "$dlfolder/Youtube/Videos/%(title)s.%(ext)s" "$1" \
+        -o "$dlfolder/Youtube/Videos/%(title)s.%(ext)s" "$url" \
     ;
 else
     # Audio-only
     /data/data/com.termux/files/home/.local/bin/PLACEHOLDERNAME \
         --extract-audio --audio-format mp3 --audio-quality 3 \
         --prefer-ffmpeg --postprocessor-args "-id3v2_version 3" \
-        -o "$dlfolder/Youtube/Songs/%(title)s.%(ext)s" "$1" \
+        -o "$dlfolder/Youtube/Songs/%(title)s.%(ext)s" "$url" \
     ;
 fi
