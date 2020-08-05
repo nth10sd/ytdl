@@ -2,8 +2,8 @@
 
 echo "[ytdl] Updating Termux package indexes...";
 pkg update -y;
-echo "[ytdl] Installing/Updating needed packages...";
-pkg install -y curl ffmpeg python;
+echo "[ytdl] Installing needed packages...";
+pkg install -y ffmpeg python;
 
 echo "[ytdl] Installing pip and setuptools...";
 pip install --user --upgrade pip setuptools;
