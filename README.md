@@ -1,3 +1,5 @@
+![linters](https://github.com/nth10sd/ytdl/workflows/linters/badge.svg)
+
 # ytdl
 
 Download Termux from any of the following places:
@@ -7,7 +9,7 @@ Download Termux from any of the following places:
 
     Note that a rooted device is **not** necessary.
 
-**\[Important\]** Give Termux permissions to access storage:
+**\[Important\]** Give Termux permissions to access storage, if access has not been previously granted:
 
 `termux-setup-storage`
 
