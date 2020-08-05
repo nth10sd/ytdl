@@ -61,8 +61,8 @@ if [[ "$video" == [yY] || "$video" == [yY][eE][sS] ]]; then
     echo "Creating destination directory...";
     mkdir -p "$HOME/storage/downloads/VideosObtained/";
     echo "Downloading both portions as preference was: $video";
-    # Cannot be renamed otherwise Chinese names disappear
-    vidpath="$dlfolder/VideosObtained/%(title)s.%(ext)s";
+    vidpath="$dlfolder/VideosObtained";
+    vidpath+="/%(title)s-maxVq$maxvideoquality-Aq$audioquality.%(ext)s";
     /data/data/com.termux/files/home/.local/bin/PLACEHOLDERNAME \
         -f "best[height<=$maxvideoquality]" \
         -o "$vidpath" "$url" \
@@ -71,8 +71,7 @@ else
     echo "Creating destination directory...";
     mkdir -p "$HOME/storage/downloads/SongsObtained/";
     echo "Downloading audio-only...";
-    # Cannot be renamed otherwise Chinese names disappear
-    songpath="$dlfolder/SongsObtained/%(title)s.%(ext)s";
+    songpath="$dlfolder/SongsObtained/%(title)s-Aq$audioquality.%(ext)s";
     /data/data/com.termux/files/home/.local/bin/PLACEHOLDERNAME \
         --extract-audio --audio-format mp3 --audio-quality "$audioquality" \
         --prefer-ffmpeg --postprocessor-args "-id3v2_version 3" \
