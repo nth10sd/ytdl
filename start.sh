@@ -29,4 +29,5 @@ curl --proto '=https' --tlsv1.2 -sSf -o "$urlopener" "$x";
 if [ -f "$urlopener" ]; then
     sed -i "s/PLACEHOLDERNAME/$1/g" "$urlopener";
 fi
-exit;
+
+echo "Installation complete!";
