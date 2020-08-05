@@ -23,19 +23,19 @@ echo "[ytdl] Running PLACEHOLDERNAME...";
 dlfolder="/data/data/com.termux/files/home/storage/downloads"
 if [[ "$video" == [yY] || "$video" == [yY][eE][sS] ]]; then
     echo "Creating destination directory...";
-    mkdir -p "$HOME/storage/downloads/DownloadedVideos/";
+    mkdir -p "$HOME/storage/downloads/VideosObtained/";
     echo "Downloading both portions as preference was: $video";
     /data/data/com.termux/files/home/.local/bin/PLACEHOLDERNAME \
         -f "best[height<=480]" \
-        -o "$dlfolder/DownloadedVideos/%(title)s.%(ext)s" "$url" \
+        -o "$dlfolder/VideosObtained/%(title)s.%(ext)s" "$url" \
     ;
 else
     echo "Creating destination directory...";
-    mkdir -p "$HOME/storage/downloads/DownloadedSongs/";
+    mkdir -p "$HOME/storage/downloads/SongsObtained/";
     echo "Downloading audio-only...";
     /data/data/com.termux/files/home/.local/bin/PLACEHOLDERNAME \
         --extract-audio --audio-format mp3 --audio-quality 3 \
         --prefer-ffmpeg --postprocessor-args "-id3v2_version 3" \
-        -o "$dlfolder/DownloadedSongs/%(title)s.%(ext)s" "$url" \
+        -o "$dlfolder/SongsObtained/%(title)s.%(ext)s" "$url" \
     ;
 fi
