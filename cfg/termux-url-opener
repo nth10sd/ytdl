@@ -52,7 +52,7 @@ elif [[ $variable == dlfolder ]]; then
 elif [[ $variable == maxvideoquality ]]; then
     echo "[ytdl] $variable value from config file is: ${value//\"/}";
     maxvideoquality="${value//\"/}";
-    echo "[ytdl] Audio quality used will be: $maxvideoquality";
+    echo "[ytdl] Max video quality used will be: $maxvideoquality";
 fi
 done < "$ycfgpath";
 
