@@ -34,10 +34,18 @@ curl --proto '=https' --tlsv1.2 -sSf -o "$HOME/.config/$1/config" "$configurl";
 echo "[ytdl] Running PLACEHOLDERNAME...";
 IFS="="
 while read -r variable value; do
-if [[ $variable == dlfolder ]]; then
+if [[ $variable == audioquality ]]; then
+    echo "[ytdl] $variable value from config file is: ${value//\"/}"
+    audioquality="${value//\"/}"
+    echo "[ytdl] Audio quality used will be: $audioquality"
+elif [[ $variable == dlfolder ]]; then
     echo "[ytdl] $variable value from config file is: ${value//\"/}"
     dlfolder="${value//\"/}"
     echo "[ytdl] Files will be saved in: $dlfolder"
+elif [[ $variable == maxvideoquality ]]; then
+    echo "[ytdl] $variable value from config file is: ${value//\"/}"
+    maxvideoquality="${value//\"/}"
+    echo "[ytdl] Audio quality used will be: $maxvideoquality"
 fi
 done < "$ycfgpath"
 if [[ "$video" == [yY] || "$video" == [yY][eE][sS] ]]; then
@@ -45,7 +53,7 @@ if [[ "$video" == [yY] || "$video" == [yY][eE][sS] ]]; then
     mkdir -p "$HOME/storage/downloads/VideosObtained/";
     echo "Downloading both portions as preference was: $video";
     /data/data/com.termux/files/home/.local/bin/PLACEHOLDERNAME \
-        -f "best[height<=480]" \
+        -f "best[height<=$maxvideoquality]" \
         -o "$dlfolder/VideosObtained/%(title)s.%(ext)s" "$url" \
     ;
 else
@@ -53,7 +61,7 @@ else
     mkdir -p "$HOME/storage/downloads/SongsObtained/";
     echo "Downloading audio-only...";
     /data/data/com.termux/files/home/.local/bin/PLACEHOLDERNAME \
-        --extract-audio --audio-format mp3 --audio-quality 3 \
+        --extract-audio --audio-format mp3 --audio-quality "$audioquality" \
         --prefer-ffmpeg --postprocessor-args "-id3v2_version 3" \
         -o "$dlfolder/SongsObtained/%(title)s.%(ext)s" "$url" \
     ;
