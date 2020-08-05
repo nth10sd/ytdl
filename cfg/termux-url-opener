@@ -65,21 +65,21 @@ if [[ "$video" == [yY] || "$video" == [yY][eE][sS] ]]; then
     echo "Creating destination directory...";
     mkdir -p "$HOME/storage/downloads/VideosObtained/";
     echo "Downloading both portions as preference was: $video";
-    # Do not make output filename a bash variable or Chinese names disappear
+    # Do not rename filenames or Chinese names disappear
     /data/data/com.termux/files/home/.local/bin/PLACEHOLDERNAME \
         -f "best[height<=$maxvidq]" \
-        -o "$dlfolder/VideosObtained/%(title)s-maxVq$maxvidq.%(ext)s" \
+        -o "$dlfolder/VideosObtained/%(title)s.%(ext)s" \
         "$url" \
     ;
 else
     echo "Creating destination directory...";
     mkdir -p "$HOME/storage/downloads/SongsObtained/";
     echo "Downloading audio-only...";
-    # Do not make output filename a bash variable or Chinese names disappear
+    # Do not rename filenames or Chinese names disappear
     /data/data/com.termux/files/home/.local/bin/PLACEHOLDERNAME \
         --extract-audio --audio-format mp3 --audio-quality "$audq" \
         --prefer-ffmpeg --postprocessor-args "-id3v2_version 3" \
-        -o "$dlfolder/SongsObtained/%(title)s-Aq$audq.%(ext)s" \
+        -o "$dlfolder/SongsObtained/%(title)s.%(ext)s" \
         "$url" \
     ;
 fi
