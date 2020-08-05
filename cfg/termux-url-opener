@@ -26,11 +26,17 @@ else
         -o "$ycfgpath" "$ytdlcfgurl";
 fi
 
-echo "[ytdl] Creating $1 config directory if it does not already exist...";
-mkdir -p "$HOME/.config/$1/";
-echo "[ytdl] Retrieving $1 config script...";
-configurl="https://raw.githubusercontent.com/nth10sd/ytdl/master/cfg/config";
-curl --proto '=https' --tlsv1.2 -sSf -o "$HOME/.config/$1/config" "$configurl";
+echo "[ytdl] Creating PLACEHOLDERNAME config directory if it does not exist.";
+mkdir -p "$HOME/.config/PLACEHOLDERNAME/";
+configpath="$HOME/.config/PLACEHOLDERNAME/config";
+if [[ -f "$configpath" ]]; then
+    echo "[ytdl] Found local PLACEHOLDERNAME config, not getting remote one.";
+else
+    echo "[ytdl] Retrieving PLACEHOLDERNAME config script...";
+    configurl="https://raw.githubusercontent.com/nth10sd";
+    configurl+="/ytdl/master/cfg/config";
+    curl --proto '=https' --tlsv1.2 -sSf -o "$configpath" "$configurl";
+fi
 
 echo "[ytdl] Parsing ytdl-config...";
 IFS="=";
