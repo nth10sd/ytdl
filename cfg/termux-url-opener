@@ -15,54 +15,60 @@ pip install --user --upgrade PLACEHOLDERNAME;
 
 echo "[ytdl] Creating ytdl config directory if it does not already exist...";
 mkdir -p "$HOME/.config/ytdl/";
-ycfgpath="$HOME/.config/ytdl/ytdl-config"
+ycfgpath="$HOME/.config/ytdl/ytdl-config";
 if [[ -f "$ycfgpath" ]]; then
-    echo "[ytdl] Found the local ytdl-config, so not retrieving remote one."
+    echo "[ytdl] Found the local ytdl-config, so not retrieving remote one.";
 else
     echo "[ytdl] Retrieving ytdl config script...";
-    cfg="https://raw.githubusercontent.com/nth10sd/ytdl/master/cfg/ytdl-config"
+    ytdlcfgurl="https://raw.githubusercontent.com/nth10sd";
+    ytdlcfgurl+="/ytdl/master/cfg/ytdl-config";
     curl --proto '=https' --tlsv1.2 -sSf \
-        -o "$ycfgpath" "$cfg";
+        -o "$ycfgpath" "$ytdlcfgurl";
 fi
 
 echo "[ytdl] Creating $1 config directory if it does not already exist...";
 mkdir -p "$HOME/.config/$1/";
 echo "[ytdl] Retrieving $1 config script...";
-configurl="https://raw.githubusercontent.com/nth10sd/ytdl/master/cfg/config"
+configurl="https://raw.githubusercontent.com/nth10sd/ytdl/master/cfg/config";
 curl --proto '=https' --tlsv1.2 -sSf -o "$HOME/.config/$1/config" "$configurl";
 
-echo "[ytdl] Running PLACEHOLDERNAME...";
-IFS="="
+echo "[ytdl] Parsing ytdl-config...";
+IFS="=";
 while read -r variable value; do
 if [[ $variable == audioquality ]]; then
-    echo "[ytdl] $variable value from config file is: ${value//\"/}"
-    audioquality="${value//\"/}"
-    echo "[ytdl] Audio quality used will be: $audioquality"
+    echo "[ytdl] $variable value from config file is: ${value//\"/}";
+    audioquality="${value//\"/}";
+    echo "[ytdl] Audio quality used will be: $audioquality";
 elif [[ $variable == dlfolder ]]; then
-    echo "[ytdl] $variable value from config file is: ${value//\"/}"
-    dlfolder="${value//\"/}"
-    echo "[ytdl] Files will be saved in: $dlfolder"
+    echo "[ytdl] $variable value from config file is: ${value//\"/}";
+    dlfolder="${value//\"/}";
+    echo "[ytdl] Files will be saved in: $dlfolder";
 elif [[ $variable == maxvideoquality ]]; then
-    echo "[ytdl] $variable value from config file is: ${value//\"/}"
-    maxvideoquality="${value//\"/}"
-    echo "[ytdl] Audio quality used will be: $maxvideoquality"
+    echo "[ytdl] $variable value from config file is: ${value//\"/}";
+    maxvideoquality="${value//\"/}";
+    echo "[ytdl] Audio quality used will be: $maxvideoquality";
 fi
-done < "$ycfgpath"
+done < "$ycfgpath";
+
+echo "[ytdl] Running PLACEHOLDERNAME...";
 if [[ "$video" == [yY] || "$video" == [yY][eE][sS] ]]; then
     echo "Creating destination directory...";
     mkdir -p "$HOME/storage/downloads/VideosObtained/";
     echo "Downloading both portions as preference was: $video";
+    vidpath="$dlfolder/VideosObtained";
+    vidpath+="/%(title)s-maxVq$maxvideoquality-Aq$audioquality.%(ext)s";
     /data/data/com.termux/files/home/.local/bin/PLACEHOLDERNAME \
         -f "best[height<=$maxvideoquality]" \
-        -o "$dlfolder/VideosObtained/%(title)s.%(ext)s" "$url" \
+        -o "$vidpath" "$url" \
     ;
 else
     echo "Creating destination directory...";
     mkdir -p "$HOME/storage/downloads/SongsObtained/";
     echo "Downloading audio-only...";
+    songpath="$dlfolder/SongsObtained/%(title)s-Aq$audioquality.%(ext)s";
     /data/data/com.termux/files/home/.local/bin/PLACEHOLDERNAME \
         --extract-audio --audio-format mp3 --audio-quality "$audioquality" \
         --prefer-ffmpeg --postprocessor-args "-id3v2_version 3" \
-        -o "$dlfolder/SongsObtained/%(title)s.%(ext)s" "$url" \
+        -o "$songpath" "$url" \
     ;
 fi
