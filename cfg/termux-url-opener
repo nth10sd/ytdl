@@ -26,18 +26,6 @@ else
         -o "$ycfgpath" "$ytdlcfgurl";
 fi
 
-echo "[ytdl] Creating PLACEHOLDERNAME config directory if it does not exist.";
-mkdir -p "$HOME/.config/PLACEHOLDERNAME/";
-configpath="$HOME/.config/PLACEHOLDERNAME/config";
-if [[ -f "$configpath" ]]; then
-    echo "[ytdl] Found local PLACEHOLDERNAME config, not getting remote one.";
-else
-    echo "[ytdl] Retrieving PLACEHOLDERNAME config script...";
-    configurl="https://raw.githubusercontent.com/nth10sd";
-    configurl+="/ytdl/master/cfg/config";
-    curl --proto '=https' --tlsv1.2 -sSf -o "$configpath" "$configurl";
-fi
-
 echo "[ytdl] Parsing ytdl-config...";
 # Default values
 audq="3"
@@ -66,6 +54,7 @@ if [[ "$video" == [yY] || "$video" == [yY][eE][sS] ]]; then
     mkdir -p "$HOME/storage/downloads/VideosObtained/";
     echo "Downloading both portions as preference was: $video";
     /data/data/com.termux/files/home/.local/bin/PLACEHOLDERNAME \
+        --add-metadata --no-mtime --no-overwrites \
         --write-sub --embed-subs --all-subs \
         -f "best[height<=$maxvidq]" \
         -o "$dlfolder/VideosObtained/%(title)s-maxVq$maxvidq.%(ext)s" \
@@ -77,6 +66,7 @@ else
     if [[ "$audq" == BEST ]]; then
         echo "Downloading best audio-only quality available...";
         /data/data/com.termux/files/home/.local/bin/PLACEHOLDERNAME \
+            --add-metadata --no-mtime --no-overwrites \
             --extract-audio --audio-format best \
             -o "$dlfolder/SongsObtained/%(title)s-Aq$audq.%(ext)s" \
             "$url" \
@@ -84,6 +74,7 @@ else
     else
         echo "Downloading audio-only and re-encoding to MP3...";
         /data/data/com.termux/files/home/.local/bin/PLACEHOLDERNAME \
+            --add-metadata --no-mtime --no-overwrites \
             --extract-audio --audio-format mp3 --audio-quality "$audq" \
             --prefer-ffmpeg --postprocessor-args "-id3v2_version 3" \
             -o "$dlfolder/SongsObtained/%(title)s-Aq$audq.%(ext)s" \
