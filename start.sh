@@ -13,11 +13,13 @@ pip install --user --upgrade "$1";
 echo "Creating ~/bin directory if it does not yet exist...";
 mkdir -p "$HOME/bin/";
 echo "Retrieving termux-url-opener script...";
-urlopener="$HOME/bin/termux-url-opener"
-x="https://raw.githubusercontent.com/nth10sd/ytdl/master/cfg/termux-url-opener"
-curl --proto '=https' --tlsv1.2 -sSf -o "$urlopener" "$x";
-if [[ -f "$urlopener" ]]; then
-    sed -i "s/PLACEHOLDERNAME/$1/g" "$urlopener";
+urlopenerpath="$HOME/bin/termux-url-opener"
+urlopenerurl="https://raw.githubusercontent.com/nth10sd"
+urlopenerurl+="/ytdl/master/cfg/termux-url-opener"
+curl --proto '=https' --tlsv1.2 -sSf \
+    -o "$urlopenerpath" "$urlopenerurl";
+if [[ -f "$urlopenerpath" ]]; then
+    sed -i "s/PLACEHOLDERNAME/$1/g" "$urlopenerpath";
 fi
 
 echo "Installation complete!";
