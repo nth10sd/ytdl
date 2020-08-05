@@ -1,7 +1,7 @@
 #! /bin/bash
 
-read -pr "Download video portion? (Y/N): " video && \
-    [[ $video == [yY] || $video == [yY][eE][sS] ]] || exit 1
+read -p 'Download video portion? (Y/N): ' -r video && \
+    [[ $video == [yY] || $video == [yY][eE][sS] ]]
 
 echo "[ytdl] Updating Termux package indexes...";
 pkg update -y;
