@@ -41,18 +41,18 @@ fi
 echo "[ytdl] Parsing ytdl-config...";
 IFS="=";
 while read -r variable value; do
-if [[ $variable == audioquality ]]; then
+if [[ $variable == audq ]]; then
     echo "[ytdl] $variable value from config file is: ${value//\"/}";
-    audioquality="${value//\"/}";
-    echo "[ytdl] Audio quality used will be: $audioquality";
+    audq="${value//\"/}";
+    echo "[ytdl] Audio quality used will be: $audq";
 elif [[ $variable == dlfolder ]]; then
     echo "[ytdl] $variable value from config file is: ${value//\"/}";
     dlfolder="${value//\"/}";
     echo "[ytdl] Files will be saved in: $dlfolder";
-elif [[ $variable == maxvideoquality ]]; then
+elif [[ $variable == maxvidq ]]; then
     echo "[ytdl] $variable value from config file is: ${value//\"/}";
-    maxvideoquality="${value//\"/}";
-    echo "[ytdl] Max video quality used will be: $maxvideoquality";
+    maxvidq="${value//\"/}";
+    echo "[ytdl] Max video quality used will be: $maxvidq";
 fi
 done < "$ycfgpath";
 
@@ -61,20 +61,21 @@ if [[ "$video" == [yY] || "$video" == [yY][eE][sS] ]]; then
     echo "Creating destination directory...";
     mkdir -p "$HOME/storage/downloads/VideosObtained/";
     echo "Downloading both portions as preference was: $video";
-    vidpath="$dlfolder/VideosObtained";
-    vidpath+="/%(title)s-maxVq$maxvideoquality-Aq$audioquality.%(ext)s";
+    # Do not make output filename a bash variable or Chinese names disappear
     /data/data/com.termux/files/home/.local/bin/PLACEHOLDERNAME \
-        -f "best[height<=$maxvideoquality]" \
-        -o "$vidpath" "$url" \
+        -f "best[height<=$maxvidq]" \
+        -o "$dlfolder/VideosObtained/%(title)s-maxVq$maxvidq-Aq$audq.%(ext)s" \
+        "$url" \
     ;
 else
     echo "Creating destination directory...";
     mkdir -p "$HOME/storage/downloads/SongsObtained/";
     echo "Downloading audio-only...";
-    songpath="$dlfolder/SongsObtained/%(title)s-Aq$audioquality.%(ext)s";
+    # Do not make output filename a bash variable or Chinese names disappear
     /data/data/com.termux/files/home/.local/bin/PLACEHOLDERNAME \
-        --extract-audio --audio-format mp3 --audio-quality "$audioquality" \
+        --extract-audio --audio-format mp3 --audio-quality "$audq" \
         --prefer-ffmpeg --postprocessor-args "-id3v2_version 3" \
-        -o "$songpath" "$url" \
+        -o "$dlfolder/SongsObtained/%(title)s-Aq$audq.%(ext)s" \
+        "$url" \
     ;
 fi
