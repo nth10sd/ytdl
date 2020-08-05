@@ -10,20 +10,8 @@ pip install --user --upgrade pip setuptools;
 echo "[ytdl] Updating $1...";
 pip install --user --upgrade "$1";
 
-echo "[ytdl] Creating ytdl config directory if it does not exist.";
-mkdir -p "$HOME/.config/ytdl/";
-ycfgpath="$HOME/.config/ytdl/ytdl-config";
-if [[ -f "$ycfgpath" ]]; then
-    echo "[ytdl] Found local ytdl-config, not getting remote one.";
-else
-    echo "[ytdl] Retrieving ytdl config script...";
-    ytdlcfgurl="https://raw.githubusercontent.com/nth10sd";
-    ytdlcfgurl+="/ytdl/master/cfg/ytdl-config";
-    curl --proto '=https' --tlsv1.2 -sSf \
-        -o "$ycfgpath" "$ytdlcfgurl";
-fi
-
 echo "[ytdl] Parsing ytdl-config...";
+ycfgpath="$HOME/.config/ytdl/ytdl-config";
 # Default values
 audq="3"
 dlfolder="/data/data/com.termux/files/home/storage/downloads"

@@ -10,6 +10,24 @@ pip install --user --upgrade pip setuptools;
 echo "[ytdl] Installing $1...";
 pip install --user --upgrade "$1";
 
+echo "[ytdl] Creating ytdl config directory if it does not exist.";
+mkdir -p "$HOME/.config/ytdl/";
+
+echo "[ytdl] Retrieving default ytdl-config file...";
+onlineycfgmd5sum="$(curl -sL https://git.io/JJ670 | md5sum | cut -d ' ' -f 1)";
+ycfgpath="$HOME/.config/ytdl/ytdl-config";
+if [[ -f "$ycfgpath" && \
+        "$(md5sum \\"$ycfgpath\\" | cut -d ' ' -f 1)" == "$onlineycfgmd5sum" \
+        ]]; then
+    echo "[ytdl] Found local custom ytdl-config, not getting remote one.";
+else
+    echo "[ytdl] Retrieving ytdl config script...";
+    ytdlcfgurl="https://raw.githubusercontent.com/nth10sd";
+    ytdlcfgurl+="/ytdl/master/cfg/ytdl-config";
+    curl --proto '=https' --tlsv1.2 -sSf \
+        -o "$ycfgpath" "$ytdlcfgurl";
+fi
+
 echo "Creating ~/bin directory if it does not yet exist...";
 mkdir -p "$HOME/bin/";
 echo "Retrieving termux-url-opener script...";
