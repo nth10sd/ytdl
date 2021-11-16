@@ -1,7 +1,7 @@
 #! /bin/bash
 
 echo "[ytdl] Updating Termux package indexes...";
-pkg remove game-repo science-repo x11-repo
+pkg remove -y game-repo science-repo x11-repo
 pkg update -y;
 pkg install -y x11-repo
 pkg update -y;
