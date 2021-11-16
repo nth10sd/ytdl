@@ -3,7 +3,7 @@
 echo "[ytdl] Updating Termux package indexes...";
 pkg update -y;
 echo "[ytdl] Installing Termux packages...";
-pkg install --no-install-recommends -y ffmpeg python;
+pkg install --no-install-recommends -y ffmpeg openssl python;
 
 echo "[ytdl] Installing latest versions of pip and setuptools...";
 pip install --user --upgrade pip setuptools;
