@@ -1,7 +1,11 @@
 #! /bin/bash
 
 echo "[ytdl] Updating Termux package indexes...";
+pkg remove game-repo science-repo x11-repo
 pkg update -y;
+pkg install -y x11-repo
+pkg update -y;
+pkg upgrade -y;
 echo "[ytdl] Installing needed packages...";
 pkg install --no-install-recommends -y ffmpeg libffi openssl python;
 
