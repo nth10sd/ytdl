@@ -5,7 +5,7 @@ pkg remove -y game-repo science-repo
 pkg update -y;
 pkg upgrade -y;
 echo "[ytdl] Installing Termux packages...";
-pkg install --no-install-recommends -y ffmpeg libffi openssl python;
+pkg install --no-install-recommends -y clang ffmpeg libffi openssl python;
 
 echo "[ytdl] Installing latest versions of pip and setuptools...";
 pip install --user --upgrade pip setuptools;
